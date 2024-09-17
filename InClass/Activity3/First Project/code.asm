@@ -18,6 +18,7 @@ z WORD ? ;.lcomm z, 2
 ;.global _main
 ;_main:
 _main PROC
+sub rsp, 28h
 
 mov letter, 077h ;movb $0x77, letter(%rip) ; all in hex
 mov r, 05h;movl $0x5, r(%rip) - potentaily incorrect

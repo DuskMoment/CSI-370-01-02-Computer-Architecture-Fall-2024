@@ -14,6 +14,7 @@ sum QWORD 0 ; other data types in slides for this week (week 3)
 
 .code ;sections exicutable code / instructions 
 _main PROC 
+sub rsp, 28h
 	mov rax, 25
 	mov rbx, 50
 	add rax, rbx

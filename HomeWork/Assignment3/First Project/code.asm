@@ -14,6 +14,7 @@ extrn ExitProcess : proc ; This funciton is important its like return 0 function
 
 .code ;sections exicutable code / instructions 
 _main PROC ; start of the main procedure also indicates the entery point for the porgram
+sub rsp, 28h ;sub tracnt 28h from rsp (this is for the debugger)
 
 mov eax , A ;moves the DWORD A into the eax register
 mov ebx , B ;moves the DWORD B into the ebx register
