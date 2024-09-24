@@ -20,7 +20,7 @@ mul dx ;multiply ax and dx
 ;store in dArr loc
 
 LEA rsi, wArr; store the mem address of wArr
-mov ax, [rsi + 2] ;take the mem address and add the offset pow(2) then move it to ax
+mov ax, WORD PTR [rsi + 1 * 2] ;take the mem address and add the offset pow(2) then move it to ax
 mov dx, 8 ; move 8 into dx
 
 mul dx;multiply ax and dx
