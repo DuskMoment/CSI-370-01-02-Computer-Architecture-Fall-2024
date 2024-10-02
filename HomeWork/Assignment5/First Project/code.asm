@@ -21,60 +21,39 @@ extrn ExitProcess : proc ; This funciton is important its like return 0 function
 	;pin DWORD 4,2,10,4
 	;pin DWORD 4,2,8,6
 	len EQU ($ - pin) ; get the length of the array
+	firstValid DWORD 3,1,7,2 ;create a array of valid ranges
+	firstLen EQU($- fisrtValid) ; get the length of the firstValid array
+	secondValid DWORD 6,4,9,5; create a array of valid ranges
+	secondLen EQU($- secondValid); get the length of secondValid array
 
-	valid BYTE 0000b ;create a BYTE var to store the score of the pin and see if it all pased (Should be 15 if pased or 1111)
+	valid BYTE 0 ;create a BYTE var to store the score of the pin and see if it all pased (Should be 4 if pased)
 
 .code ;sections exicutable code / instructions 
 _main PROC ; start of the main procedure also indicates the entery point for the porgram
-sub rsp, 28h
+sub rsp, 28h ;create shadow space in the funciton
 
-lea rsi, pin ;load the effective memeory address of lea
-;test first loction in the pin
+lea rsi, pin ;load the effective memeory address of pin
+lea r12, firstValid ; load the effective memeory address of firstValid 
+lea r14, secondValid; load the effective memeory address of secondValid
 
-cmp pin, 3 ;compair pin against 3
-JB skipToEnd ;if the carry flag is below 3 then failed and skip to the end
-cmp pin, 6 ;compair pin against 6
-JA skipToEnd ;if the carry flag is above 6 then skip to the end
+sub r11, 0; set r11 to zero
 
-; add mask
-OR valid , 1000b ;add a bit mask to valid so we have some data to check at the end
+loopValid: ;lable for the loop
+XOR eax, eax ;clear out eax of any junk (make it zero)
+mov eax, [rsi + r11 * 4] ;move the index location of the pin array into eax
 
-;validate second location
-XOR eax, eax ;zero out location
-mov eax, [rsi + 1 * 4] ;move the index location of the pin array into eax
+cmp eax, [r12 + r11 * 4] ;compair eax against our firstValid array at position r11
+JB skipToEnd ;jump of the reslult is below 
+cmp eax, [r14 + r11 * 4] ;compair eax against the secondValid array at pos r11
+JA skipToEnd ;jump of the reslut was above
 
-cmp eax, 1 ;compair eax against 1
-JB skipToEnd ;if the carry flag is below 1 then failed and skip to the end
+inc valid ;increase valid
 
-cmp eax, 4 ;compair eax against 4
-JA skipToEnd ;if the carry flag is above 4 then skip to the end
+;loop counter
+cmp r11,3 ;compair our counter to the 3 literal
+inc r11 ;inciment r11
+JB loopValid; jump if below 3
 
-; add mask
-OR valid , 0100b ;add a bit mask to valid so we have some data to check at the end
-
-;validate third location
-mov eax, [rsi + 2 * 4] ;move the index location of the pin array into eax
-
-cmp eax, 7 ;compair eax against seven
-JB skipToEnd ;if the carry flag is below 7 then failed and skip to the end
-
-cmp eax, 9 ;compair eax against nine
-JA skipToEnd ;if the carry flag is above 9 then skip to the end
-
-; add mask
-OR valid , 0010b ;add a bit mask to valid so we have some data to check at the end
-
-;validate 4th location
-mov eax, [rsi + 3 * 4] ;move the index location of the pin array into eax
-
-cmp eax, 2 ;compair eax against 2
-JB skipToEnd ;if the carry flag is below 2 then failed and skip to the end
-
-cmp eax, 5 ;compair eax against 5
-JA skipToEnd ;if the carry flag is above 5 then skip to the end
-
-; add mask
-OR valid , 0001b;add a bit mask to valid so we have some data to check at the end
 
 skipToEnd: ;this is a label so we can jump to it to end the program
 

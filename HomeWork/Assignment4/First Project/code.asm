@@ -41,7 +41,7 @@ movzx ebx, ax ;store the 16 bit val in the 32 bit register using movzx (does not
 mov [rdi + 2 * 4], ebx ;store the val of ebx in the correct index pos of dArr (locaiton + index * size)
 
 ;fourth mutliplcation
-mov ax, [rsi + 3 * 2] ;take the mem address and add the index * size and put it into ax
+mov ax, WORD PTR [rsi + 3 * 2] ;take the mem address and add the index * size and put it into ax
 mov dx, 8 ; move 8 into dx
 
 mul dx ;multiply ax and dx
