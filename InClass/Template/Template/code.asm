@@ -34,8 +34,8 @@ _masmTest PROC
 	add rax, rdx
 
 	;epiloge
-	lea rsp, [rbp]
-	pop rbp
+	lea rsp, [rbp] ;set the stack pointer back to the top of the frame
+	pop rbp ;take the base frame pointer off the stack
 	ret
 _masmTest EndP
 
