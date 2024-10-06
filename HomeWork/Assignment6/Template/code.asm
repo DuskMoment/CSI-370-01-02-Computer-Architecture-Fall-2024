@@ -24,13 +24,14 @@ asmMain PROC
 
 	call _bubbleSort
 
+	mov rcx, rax
 	ret
 asmMain ENDP
 
 _bubbleSort proc
 push rbp
 sub rsp, 20h;shadow space
-mov rbp, [rsp + 20h];start of function frame
+lea rbp, [rsp + 20h];start of function frame load effective address not mov
 
 mov r12, 0;bool for if swaped
 mov r10, 0;outer loop counter
