@@ -2,7 +2,8 @@
 
 
 .DATA
- array WORD 2,1,10,20,7
+ ;array WORD 2,1,10,20,7
+ array WORD 52, 7, 77, 20, 55, 86, 57, 56, 34, 19
 
  len equ ($ - array)
 
@@ -11,9 +12,9 @@ asmMain PROC
 	;your code will go here
 
 	;get the size of the array in indexes 
-	mov rax, len
 	xor rdx, rdx
-
+	mov rax, len
+	
 	mov rcx, 2
 	DIV rcx 
 
