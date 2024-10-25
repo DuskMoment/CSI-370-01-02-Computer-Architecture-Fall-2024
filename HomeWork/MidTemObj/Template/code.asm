@@ -1,9 +1,5 @@
-;Midterm- part 2 program 7.1
-; William Mansfield
-
-extrn ExitProcess : proc ; This funciton is important its like return 0 function prototype for the exitProcess
-
-.data ; setions inzalized and uninizalized 
+;code.asm
+ .data ; setions inzalized and uninizalized 
 	string1 BYTE "Try harder still", 0
 	str1Len equ ($ - string1)
 	string2 BYTE "Try harder", 0
@@ -11,11 +7,9 @@ extrn ExitProcess : proc ; This funciton is important its like return 0 function
 
 	result QWORD ?; if word is 0 the it was a complete match... if result is 1 then the string is completey diffrent... if result is anyhting else then it was diffrent at that index
 .code ;sections exicutable code / instructions 
-_main PROC ; start of the main procedure also indicates the entery point for the porgram
-sub rsp, 28h ;create shadow space in the funciton
 
+asmMain PROC
 ;load the array addresses
-
 ;find the bigger length
 mov rax, str1Len
 cmp rax, str2Len
@@ -73,7 +67,6 @@ jmp skipToEnd
 
 
 skipToEnd:
-xor rcx, rcx ; 0s out the rcx register
-call ExitProcess ; calls the exitProcess procedure and releases resources
-_main ENDP ; marks the end of the _main proc
-END ; indicates end of the program
+ret
+asmMain ENDP
+END
