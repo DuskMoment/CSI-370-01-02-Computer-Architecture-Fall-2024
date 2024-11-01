@@ -114,8 +114,6 @@ _main PROC
 	vdivps xmm0, xmm1, xmm0
 	;Noramilized!!
 
-	
-
 	xor rcx, rcx ; clears out the rcx register
 call ExitProcess
 _main ENDP
