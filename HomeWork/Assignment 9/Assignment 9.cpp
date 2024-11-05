@@ -2,16 +2,19 @@
 #include <fstream>
 #include <cassert> 
 #include <string>
+#include <stdexcept>
 
 
-
+//MAKE SURE TO RUN IN 32 BIT MODE
 using namespace std;
 char* readFile(string fileName, int size)
 {
     fstream fileStream;
 
     fileStream.open(fileName);
+
     assert(fileStream.is_open());
+
     //int counter;
     //   
     string newLine;
@@ -37,7 +40,7 @@ int countFile(string fileName)
 
     fileStream.open(fileName);
 
-    assert(fileStream.is_open());    
+    assert(fileStream.is_open());
     
     int counter = 0;
     char junk;
@@ -58,13 +61,15 @@ int countFile(string fileName)
 void writeToFile(char* arr,int size)
 {
     fstream fileStream;
-    cout << "Please input a file to write too" << endl;
+    cout << "Please input a file to write too. Please make sure that this file exists" << endl;
     string fileName;
     string junk;
     std::getline(std::cin, junk);
     std::getline(std::cin, fileName);
 
     fileStream.open(fileName);
+    assert(fileStream.is_open());
+
     fileStream.clear();
 
     for (int i = 0; i < size; i++)
@@ -83,14 +88,20 @@ void encode(char* arr, int size)
 
         mov ecx, eSize
         mov edi, 0
-        mov eax, eArr
+        mov esi, eArr
         //shift by one assci
         myLoop :
-            sub[eax + edi], 1
-            ror[eax + edi], 3
-            xor [eax + edi], 110001b
-            add[eax + edi], 5
-            rol[eax + edi], 40
+            mov al, [esi + edi]
+            movsx edx, al
+            mov eax, 2
+            imul eax, edx
+            
+            mov [esi + edi], al
+
+            ror[esi + edi], 3
+            xor [esi + edi], 110001b
+            add[esi + edi], 5
+            rol[esi + edi], 40
 
             inc edi
             loop myLoop
@@ -115,14 +126,21 @@ void decode(char* arr, int size)
         ; lea eax, dArr
         mov ecx, dSize
         mov edi, 0
-        mov eax, arr
+        mov esi, arr
         //shift by one assci
         myLoopInv :
-            ror[eax + edi], 40
-            sub[eax + edi], 5
-            xor [eax + edi], 110001b
-            rol[eax + edi], 3
-            add[eax + edi], 1
+            ror[esi + edi], 40
+            sub[esi + edi], 5
+            xor [esi + edi], 110001b
+            rol[esi + edi], 3
+
+            xor eax, eax
+            mov al, [esi + edi]
+            xor edx, edx
+            mov ebx, 2
+            div ebx
+            mov [esi + edi], al
+
             inc edi
         loop myLoopInv
 
@@ -132,6 +150,7 @@ void decode(char* arr, int size)
     {
         cout << dArr[i];
     }
+    cout << endl;
 
     writeToFile(dArr, dSize);
 
@@ -142,13 +161,14 @@ int main()
 {
     std::cout << "Hello World!\n";
 
-    cout << "Welcome! Please enter the File to read" << endl;
+    cout << "Welcome! Please enter the File to read with the file extension. Please make sure that this file exists before typing in the name" << endl;
     string file;
     std::getline(std::cin, file);
 
     int count = countFile(file);
     char* arr = readFile(file, count);
 
+    cout << "Please input a number" << endl;
     cout << "1. Encode" << endl;
     cout << "2. Decode" << endl;
     int choice = 0;
