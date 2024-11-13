@@ -39,7 +39,11 @@ struct XorShift
         "cp r16, 0 \n\t"
       
       "BRNE firstShift \n\t"
-      "NEG r17 \n\t"
+      "cp r17, 0 \n\t"
+      "BRGE skip1 \n\t"
+      "NEG r17 \n\t" 
+
+      "skip1: \n\t"
       "EOR r17, r19 \n\t"
       "Mov r19, r17 \n\t"// store the new state
 
@@ -53,8 +57,11 @@ struct XorShift
       "BRNE secondShift \n\t"
 
       //need some if statment for the neg so that it does not do it when we are already positve
-      "NEG r17 \n\t"
+      "cp r17, 0 \n\t"
+      "BRGE skip2 \n\t"
+      "NEG r17 \n\t" 
 
+      "skip2: \n\t"
       "EOR r17, r19 \n\t"
       "Mov r19, r17 \n\t"// store the new state
 
@@ -66,7 +73,12 @@ struct XorShift
         "cp r16, 0 \n\t"
       
       "BRNE thirdShift \n\t"
+
+      "cp r17, 0 \n\t"
+      "BRGE skip3 \n\t"
       "NEG r17 \n\t"
+
+      "skip3: \n\t" 
       "EOR r17, r19 \n\t"
       "Mov r19, r17 \n\t"// store the new state */
 
@@ -163,7 +175,7 @@ void loop() {
   
   isInit = false;
   Serial.write("Sucsees!");
-  xorShift->setSeed('');
+  xorShift->setSeed('2');
   int test =  xorShift->generate();
   
 
