@@ -2,7 +2,7 @@ struct XorShift
 {
   public:
 
-  void setSeed(int seed)
+  void setSeed(char seed)
   {
     mSeed = seed;
 
@@ -13,9 +13,15 @@ struct XorShift
     return mSeed;
   }
 
-  int generate()
+  char generate()
   {
- 
+
+
+
+    char temp;
+
+    Serial.println("mSeed before mangle");
+    Serial.println(mSeed);
     //right now the code is too big so in order to fix it needs to chopped in to smaller 8 bit chunks?
      __asm__ (
       "mov r17, %[input] \n\t"
@@ -33,7 +39,7 @@ struct XorShift
         "cp r16, 0 \n\t"
       
       "BRNE firstShift \n\t"
-
+      "NEG r17 \n\t"
       "EOR r17, r19 \n\t"
       "Mov r19, r17 \n\t"// store the new state
 
@@ -45,6 +51,10 @@ struct XorShift
         "cp r16, 0 \n\t"
       
       "BRNE secondShift \n\t"
+
+      //need some if statment for the neg so that it does not do it when we are already positve
+      "NEG r17 \n\t"
+
       "EOR r17, r19 \n\t"
       "Mov r19, r17 \n\t"// store the new state
 
@@ -56,26 +66,29 @@ struct XorShift
         "cp r16, 0 \n\t"
       
       "BRNE thirdShift \n\t"
+      "NEG r17 \n\t"
       "EOR r17, r19 \n\t"
-      "Mov r19, r17 \n\t"// store the new state
+      "Mov r19, r17 \n\t"// store the new state */
 
      
       "mov %[result], r17"
       :
       //output
-      [result] "=r"(mSeed)
+      [result] "=r"(temp)
       :
       //input
       [input] "r" (mSeed)
       :
       //Clobbers
     );
+    Serial.println("temp");
+    Serial.println(temp);
 
-    return mSeed;
+    return mSeed = temp;
 
   }
   private:
-  int mSeed;
+  char mSeed;
 };
 
 XorShift* xorShift;
@@ -126,7 +139,8 @@ int readAndPrintMessege()
 int seed = 0;
 void setup() {
  Serial.begin(9600);
- xorShift = new XorShift();
+ 
+ xorShift = (XorShift*)malloc(sizeof(XorShift));
   
  
  
@@ -136,7 +150,8 @@ void loop() {
 
   if(isInit)
   {
-    seed = readAndPrintMessege();
+    seed = readAndPrintMessege(); 
+    xorShift->setSeed(seed);
   }
 
  if(seed <= 0)
@@ -145,10 +160,12 @@ void loop() {
  }
  else
  {
+  
   isInit = false;
   Serial.write("Sucsees!");
-  
+  xorShift->setSeed('');
   int test =  xorShift->generate();
+  
 
   Serial.println("First Nubmer test");
   Serial.println(test);
@@ -156,9 +173,6 @@ void loop() {
   Serial.println("seed ");
   Serial.write(xorShift->getSeed());
 
-  test = xorShift->generate();
-  Serial.println("Second number Nubmer test");
-  Serial.println(test);
 
   seed=0;
 
