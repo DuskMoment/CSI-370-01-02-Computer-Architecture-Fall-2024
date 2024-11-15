@@ -13,15 +13,13 @@ struct XorShift
     return mSeed;
   }
 
+//I know that the shift definalty works so why is the is it not taking the new parameiters?
   char generate()
   {
-
-
-
     char temp;
 
-    Serial.println("mSeed before mangle");
-    Serial.println(mSeed);
+    //Serial.println("mSeed before mangle");
+    //Serial.println(mSeed);
     //right now the code is too big so in order to fix it needs to chopped in to smaller 8 bit chunks?
      __asm__ (
       "mov r17, %[input] \n\t"
@@ -92,11 +90,20 @@ struct XorShift
       [input] "r" (mSeed)
       :
       //Clobbers
+      "r17", "r19", "r16"
     );
+    //Serial.println("temp");
+   // Serial.println(temp);
+    Serial.println("mSeed");
+    Serial.println(mSeed);
     Serial.println("temp");
     Serial.println(temp);
+    mSeed = temp;
 
-    return mSeed = temp;
+    Serial.println("after Store");
+    Serial.println(mSeed);
+
+    return mSeed;
 
   }
   private:
@@ -182,13 +189,12 @@ void loop() {
   Serial.println("First Nubmer test");
   Serial.println(test);
 
-  Serial.println("seed ");
-  Serial.write(xorShift->getSeed());
+  int test2 = xorShift->generate();
 
-
-  seed=0;
-
- 
+  Serial.println("Test2");
+  Serial.println(test2);
+  
+  seed = 0;
  }
 }
 
