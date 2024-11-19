@@ -11,11 +11,14 @@ extrn WriteFile : proc
 
 .data ; setions inzalized and uninizalized 
 	
+
+	sucMessage BYTE "file has copied",0
+	failMessage BYTE "Somthing has failed",0
 	outputFileName BYTE "output.txt",0
 
 	inputFile BYTE "input.txt", 0
-	bufferSize QWORD 20
-	buffer BYTE 21 dup(0)
+	bufferSize QWORD 100
+	buffer BYTE 101 dup(0)
 
 	caption BYTE "myWindow",0
 
@@ -60,7 +63,7 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 
 	;create new file
 	lea rcx, outputFileName
-	mov rdx, 10000000h ;change this to thw right code
+	mov rdx, 10000000h ;GENERIC_ALL
 	xor r8, r8
 	xor r9, r9
 	mov QWORD PTR [rsp + 48h - 28h], 4 ;OPEN_ALWAYS
@@ -78,6 +81,29 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 	mov QWORD PTR [rsp + 48h - 28h], 0 
 	call WriteFile
 
+	cmp RAX, 0
+
+	jbe fail
+
+	
+		;display window
+		xor rcx, rcx
+		lea rdx, sucMessage
+		lea r8, caption
+		xor r9, r9
+		call MessageBoxA
+		mov button,rax
+		jmp skipTo
+	fail:
+		;display window
+		xor rcx, rcx
+		lea rdx, failMessage
+		lea r8, caption
+		xor r9, r9
+		call MessageBoxA
+		mov button,rax
+
+	skipTo:
 	mov rcx, FD
 	call CloseHandle
 	mov closed,rax
@@ -93,3 +119,5 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 call ExitProcess ; calls the exitProcess procedure and releases resources
 _main ENDP ; marks the end of the _main proc
 END ; indicates end of the program
+
+;https://learn.microsoft.com/en-us/windows/win32/secauthz/generic-access-rights
