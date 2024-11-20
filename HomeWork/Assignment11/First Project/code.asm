@@ -63,7 +63,7 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 
 	;create new file
 	lea rcx, outputFileName
-	mov rdx, 10000000h ;GENERIC_ALL
+	mov rdx, 0C0000000h ;read and write
 	xor r8, r8
 	xor r9, r9
 	mov QWORD PTR [rsp + 48h - 28h], 4 ;OPEN_ALWAYS
@@ -121,3 +121,4 @@ _main ENDP ; marks the end of the _main proc
 END ; indicates end of the program
 
 ;https://learn.microsoft.com/en-us/windows/win32/secauthz/generic-access-rights
+;https://learn.microsoft.com/en-us/windows/win32/secauthz/access-mask-format
