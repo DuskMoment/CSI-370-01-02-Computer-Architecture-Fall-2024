@@ -56,7 +56,7 @@ void setup() {
     pinMode(row[thisPin], OUTPUT);
     // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
     //digitalWrite(col[thisPin], LOW);
-  }
+  } 
 
  /* // initialize the pixel matrix:
   for (int x = 0; x <8; x++) {
@@ -64,7 +64,16 @@ void setup() {
       pixels[x][y] = LOW;
     }
   }*/
+
+//this should set port 9
+   /*asm (
+    "sbi %0, %1 \n\t"
+    ::"I"(_SFR_IO_ADDR(DDRD)),"I" (DDD7)
+  );*/
 }
+//DDD2 is row 1
+//DDD3 is row 2
+//DDD5 is row 7
 
 void loop() {
   // read input:
@@ -73,14 +82,61 @@ void loop() {
   // draw the screen:
   //refreshScreen();
 
-  digitalWrite(col[7], HIGH); //col 1
-  digitalWrite(col[5], HIGH); //col 2
-  digitalWrite(row[7], HIGH); //is a col 3
-  digitalWrite(col[0], HIGH); // col 4
-  digitalWrite(col[2], HIGH); //col 5
-  digitalWrite(col[4], HIGH); // col 6
-  digitalWrite(col[1], HIGH); //col 7
-  digitalWrite(row[2], HIGH); //col 8? 
+  //digitalWrite(col[7], HIGH); //col 1
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+
+  //digitalWrite(col[1], HIGH); //col 7
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB3) 
+  );
+
+  //digitalWrite(row[2], HIGH); //col 8? 
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC5) 
+  );
 
 
   //digitalWrite(col[3], HIGH); issue
@@ -130,3 +186,7 @@ void refreshScreen() {
     digitalWrite(row[thisRow], HIGH);
   }
 }
+
+
+
+//port b (ddb4) = 2

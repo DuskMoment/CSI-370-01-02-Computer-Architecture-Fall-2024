@@ -1,3 +1,6 @@
+#define LED PORTB;
+
+
 long randNumber;
 const int buttonPin = A0;
 const int ledPin = 13;
@@ -34,8 +37,11 @@ void clearChannels()
 }
 void num1()
 {
+  //set port nine to write using output
   clearChannels();
   digitalWrite(col[7], HIGH); //col 1
+
+
 }
 void num2()
 {
@@ -96,8 +102,11 @@ void setup()
     pinMode(row[thisPin], OUTPUT);
     // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
     //digitalWrite(col[thisPin], LOW);
+   
   }
-  //num2();
+  
+  
+  num2();
 }
 
 bool isPressed = false;

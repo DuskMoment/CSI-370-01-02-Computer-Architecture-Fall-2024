@@ -81,13 +81,13 @@ struct XorShift
       "Mov r19, r17 \n\t"// store the new state */
 
      
-      "mov %[result], r17"
+      "mov %[result], r17 \n\t"
       :
       //output
-      [result] "=r"(temp)
+      [result] "=d"(temp)
       :
       //input
-      [input] "r" (mSeed)
+      [input] "d" (mSeed)
       :
       //Clobbers
       "r17", "r19", "r16"
@@ -116,7 +116,6 @@ const int MAX_MESSAGE_LENGTH = 12;
 int readAndPrintMessege()
 {
   
-
    while (Serial.available() > 0)
   {
    //Create a place to hold the incoming message
@@ -189,14 +188,9 @@ void loop() {
   Serial.println("First Nubmer test");
   Serial.println(test);
 
-  int test2 = xorShift->generate();
 
-  Serial.println("Test2");
-  Serial.println(test2);
+ 
   
   seed = 0;
  }
 }
-
-
-

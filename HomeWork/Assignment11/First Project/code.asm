@@ -17,8 +17,8 @@ extrn WriteFile : proc
 	outputFileName BYTE "output.txt",0
 
 	inputFile BYTE "input.txt", 0
-	bufferSize QWORD 100
-	buffer BYTE 101 dup(0)
+	bufferSize QWORD 300
+	buffer BYTE 301 dup(0)
 
 	caption BYTE "myWindow",0
 
@@ -76,7 +76,7 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 	;write to new file
 	mov rcx, FD2
 	lea rdx, buffer
-	mov r8, bufferSize
+	mov r8, charsRead
 	lea r9, charsRead
 	mov QWORD PTR [rsp + 48h - 28h], 0 
 	call WriteFile
@@ -113,9 +113,7 @@ _main PROC ; start of the main procedure also indicates the entery point for the
 	mov closed2, rax
 
 
-
-
-
+	xor rcx, rcx
 call ExitProcess ; calls the exitProcess procedure and releases resources
 _main ENDP ; marks the end of the _main proc
 END ; indicates end of the program

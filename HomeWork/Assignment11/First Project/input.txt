@@ -1,1 +1,1 @@
-:3
+This is a text file that is used for testing the program
