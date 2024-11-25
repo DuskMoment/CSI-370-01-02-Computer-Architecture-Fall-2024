@@ -39,53 +39,183 @@ void num1()
 {
   //set port nine to write using output
   clearChannels();
-  digitalWrite(col[7], HIGH); //col 1
+  //digitalWrite(col[7], HIGH); //col 1
+   asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
 
 
 }
 void num2()
 {
   clearChannels();
-  digitalWrite(col[7], HIGH); //col 1
-  digitalWrite(col[5], HIGH); //col 2
+ // digitalWrite(col[7], HIGH); //col 1
+   asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
 
 }
 void num3()
 {
   clearChannels();
-  digitalWrite(col[7], HIGH); //col 1
-  digitalWrite(col[5], HIGH); //col 2
-  digitalWrite(row[7], HIGH); //is a col 3
+  //digitalWrite(col[7], HIGH); //col 1
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+  //digitalWrite(row[7], HIGH); //is a col 3
+    asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
 
 }
 void num4()
 {
   clearChannels();
-   digitalWrite(col[7], HIGH); //col 1
+  /* digitalWrite(col[7], HIGH); //col 1
   digitalWrite(col[5], HIGH); //col 2
   digitalWrite(row[7], HIGH); //is a col 3
-  digitalWrite(col[0], HIGH); // col 4
+  digitalWrite(col[0], HIGH); // col 4*/
+
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
 
 }
 void num5()
 {
   clearChannels();
-   digitalWrite(col[7], HIGH); //col 1
+   /*digitalWrite(col[7], HIGH); //col 1
   digitalWrite(col[5], HIGH); //col 2
   digitalWrite(row[7], HIGH); //is a col 3
   digitalWrite(col[0], HIGH); // col 4
-  digitalWrite(col[2], HIGH); //col 5
+  digitalWrite(col[2], HIGH); //col 5*/
+
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
 }
 
 void num6()
 {
    clearChannels();
-   digitalWrite(col[7], HIGH); //col 1
+   /*digitalWrite(col[7], HIGH); //col 1
   digitalWrite(col[5], HIGH); //col 2
   digitalWrite(row[7], HIGH); //is a col 3
   digitalWrite(col[0], HIGH); // col 4
   digitalWrite(col[2], HIGH); //col 5
-  digitalWrite(col[4], HIGH); // col 6
+  digitalWrite(col[4], HIGH); // col 6*/
+
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
 }
 void setup() 
 {
@@ -106,7 +236,7 @@ void setup()
   }
   
   
-  num2();
+  //num2();
 }
 
 bool isPressed = false;
