@@ -1,5 +1,7 @@
-#define LED PORTB;
-
+#define LED PORTB
+#define PB_PIN_DIRS B11111111
+#define PD_PIN_DIRS B11111100
+#define PC_PIN_DIRS B1111100
 
 long randNumber;
 const int buttonPin = A0;
@@ -50,17 +52,17 @@ void num1()
 void num2()
 {
   clearChannels();
- // digitalWrite(col[7], HIGH); //col 1
-   asm (
+ digitalWrite(col[7], HIGH); //col 1
+   /*asm (
     "sbi %0, %1 \n"
     :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
-  );
-  //digitalWrite(col[5], HIGH); //col 2
-   asm(
+  );*/
+  digitalWrite(col[5], HIGH); //col 2
+  /* asm(
     "sbi %0, %1 \n\t"
     :
     :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
-  );
+  );*/
 
 }
 void num3()
@@ -216,6 +218,7 @@ void num6()
     :
     :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
   );
+  
 }
 void setup() 
 {
@@ -226,17 +229,22 @@ void setup()
   pinMode(ledPin,OUTPUT);
   pinMode(buttonPin, INPUT);
 
-   for (int thisPin = 0; thisPin < 8; thisPin++) {
-    // initialize the output pins:
-    pinMode(col[thisPin], OUTPUT);
-    pinMode(row[thisPin], OUTPUT);
-    // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
-    //digitalWrite(col[thisPin], LOW);
    
-  }
-  
-  
-  //num2();
+
+//sets all ports
+  asm (
+    "out %0, %1 \n"
+    : : "I" (_SFR_IO_ADDR(DDRB)), "r" (PB_PIN_DIRS)
+  );
+  asm (
+    "out %0, %1 \n"
+    : : "I" (_SFR_IO_ADDR(DDRD)), "r" (PD_PIN_DIRS)
+  );
+  asm (
+    "out %0, %1 \n"
+    : : "I" (_SFR_IO_ADDR(DDRC)), "r" (PC_PIN_DIRS)
+  );
+  num6();
 }
 
 bool isPressed = false;

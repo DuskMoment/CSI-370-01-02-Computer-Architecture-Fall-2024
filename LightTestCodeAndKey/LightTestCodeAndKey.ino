@@ -57,6 +57,7 @@ void setup() {
     // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
     //digitalWrite(col[thisPin], LOW);
   } 
+  pinMode(row[1], INPUT);
 
  /* // initialize the pixel matrix:
   for (int x = 0; x <8; x++) {
@@ -139,9 +140,9 @@ void loop() {
   );
 
 
-  //digitalWrite(col[3], HIGH); issue
+  //digitalWrite(col[3], HIGH); //issue
    
-   //digitalWrite(col[6], HIGH); issue
+   //digitalWrite(col[6], HIGH); //issue
    
    //digitalWrite(row[0], HIGH);
    //digitalWrite(row[1], HIGH); //sorta ccorrect seems to be 3 insrred if 2
