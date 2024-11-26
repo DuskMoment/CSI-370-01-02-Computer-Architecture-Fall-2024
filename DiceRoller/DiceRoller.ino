@@ -167,7 +167,6 @@ void num5()
     :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
   );
 }
-
 void num6()
 {
    clearChannels();
@@ -220,6 +219,306 @@ void num6()
   );
   
 }
+void num7()
+{
+   clearChannels();
+   /*digitalWrite(col[7], HIGH); //col 1
+  digitalWrite(col[5], HIGH); //col 2
+  digitalWrite(row[7], HIGH); //is a col 3
+  digitalWrite(col[0], HIGH); // col 4
+  digitalWrite(col[2], HIGH); //col 5
+  digitalWrite(col[4], HIGH); // col 6*/
+
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+  //digitalWrite(col[1], HIGH); //col 7
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB3) 
+  );
+  
+}
+void num8()
+{
+   clearChannels();
+   /*digitalWrite(col[7], HIGH); //col 1
+  digitalWrite(col[5], HIGH); //col 2
+  digitalWrite(row[7], HIGH); //is a col 3
+  digitalWrite(col[0], HIGH); // col 4
+  digitalWrite(col[2], HIGH); //col 5
+  digitalWrite(col[4], HIGH); // col 6*/
+
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+  
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+  //digitalWrite(col[1], HIGH); //col 7
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB3) 
+  );
+    //digitalWrite(row[2], HIGH); //col 8? 
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC5) 
+  );
+}
+void num9()
+{
+   clearChannels();
+  //digitalWrite(col[7], HIGH); //col 1
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+    //digitalWrite(row[2], HIGH); //col 8? 
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC5) 
+  );
+}
+void num10()
+{
+  clearChannels();
+
+   //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+  //digitalWrite(row[2], HIGH); //col 8? 
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC5) 
+  );
+}
+void num11()
+{
+  clearChannels();
+  num10();
+  //digitalWrite(col[7], HIGH); //col 1
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+}
+void num12()
+{
+  clearChannels();
+  num9();
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+}
+void num13()
+{
+  num10();
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+}
+void num14()
+{
+  num10();
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+}
+void num15()
+{
+  num10();
+  //digitalWrite(col[2], HIGH); //col 5
+
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+}
+void num16()
+{
+  num10();
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+}
+void num17()
+{
+  num10();
+   //digitalWrite(col[1], HIGH); //col 7
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB3) 
+  );
+}
+void num18()
+{
+  clearChannels();
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+
+  //digitalWrite(col[1], HIGH); //col 7
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB3) 
+  );
+}
+void num19()
+{
+  num19();
+  //digitalWrite(col[7], HIGH); //col 1
+  asm (
+    "sbi %0, %1 \n"
+    :: "I" (_SFR_IO_ADDR(PORTB)), "I" (PORTB1)
+  );
+
+}
+void num20()
+{
+  clearChannels();
+  //digitalWrite(col[5], HIGH); //col 2
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD4)
+  );
+
+  //digitalWrite(row[7], HIGH); //is a col 3
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC2)
+  );
+
+  //digitalWrite(col[0], HIGH); // col 4
+   asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTD)), "I" (PORTD6)
+  );
+  
+  //digitalWrite(col[2], HIGH); //col 5
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTB)), "I" (PORTB2) //might be incorrct becasue of wiring
+  );
+
+  //digitalWrite(col[4], HIGH); // col 6
+  asm(
+    "sbi %0, %1 \n\t"
+    :
+    :"I"(_SFR_IO_ADDR(PORTC)), "I" (PORTC3) 
+  );
+
+
+}
 void setup() 
 {
   // put your setup code here, to run once:
@@ -244,7 +543,7 @@ void setup()
     "out %0, %1 \n"
     : : "I" (_SFR_IO_ADDR(DDRC)), "r" (PC_PIN_DIRS)
   );
-  num6();
+  num17();
 }
 
 bool isPressed = false;
@@ -257,7 +556,7 @@ void loop()
   if(buttonState == 1023 && !isPressed)
   {
     Serial.println("BUTTON PRESED!");
-    randNumber = random(7);
+    randNumber = random(21);
      Serial.println(randNumber);
 
     //on
@@ -294,6 +593,49 @@ void loop()
     case 6:
       num6();
       break;
+    case 7:
+      num7();
+      break;
+    case 8:
+      num8();
+      break;
+    case 9:
+      num9();
+      break;
+    case 10:
+      num10();
+      break;
+    case 11:
+      num11();
+      break;
+    case 12:
+      num12();
+      break;
+    case 13:
+      num13();
+      break;
+    case 14:
+      num14();
+      break;
+    case 15:
+      num15();
+      break;
+    case 16:
+      num16();
+      break;
+    case 17:
+      num17();
+      break;
+    case 18:
+      num18();
+      break;
+    case 19:
+      num19();
+      break;
+    case 20:
+      num20();
+      break;
+
   }
  
 
