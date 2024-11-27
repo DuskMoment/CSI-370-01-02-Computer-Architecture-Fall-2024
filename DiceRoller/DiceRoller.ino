@@ -8,6 +8,7 @@ const int buttonPin = A0;
 const int ledPin = 13;
 
 int buttonState = 0;
+int state = 0;
 
 
 // 2-dimensional array of row pin numbers:
@@ -519,6 +520,60 @@ void num20()
 
 
 }
+
+int randomNumber(int num)
+{
+  int localNumber = num;
+  int localResult = 0;
+  //&1 is the localNumber and &0 is the localResult
+  asm(
+    "mov r3, %1 \n\t"
+
+//shift number , then xor with store, restore value
+    "ldi r16, 6 \n\t"
+    "firstLoop: \n\t"
+    "lsl r3 \n\t"
+    "dec r16 \n\t"
+    "brne firstLoop \n\t"
+
+    "eor %1, r3 \n\t" 
+    "mov r3, %1 \n\t"
+
+    "ldi r16, 7 \n\t"
+    "secondLoop: \n\t"
+    "lsr r3 \n\t"
+    "dec 16 \n\t"
+    "brne secondLoop \n\t"
+
+    "eor %1, r3 \n\t" 
+    "mov r3, %1 \n\t"
+
+    "ldi r16, 1 \n\t"
+    "thirdLoop: \n\t"
+    "lsl r3 \n\t"
+    "dec r16 \n\t"
+    "brne thirdLoop \n\t"
+    
+
+    "eor %1, r3 \n\t" 
+    "mov r3, %1 \n\t"
+
+    "mov %0, %1 \n\t"
+    :"r=" (localResult)
+    :"r" (localNumber)
+    : "r16"
+    
+  );
+
+ // Serial.println(localResult);
+  return localResult;
+
+}
+int convertToRange(int min, int max, int num)
+{
+  return num % (max - min + 1) + min;
+
+}
 void setup() 
 {
   // put your setup code here, to run once:
@@ -527,6 +582,8 @@ void setup()
   randomSeed(analogRead(0));
   pinMode(ledPin,OUTPUT);
   pinMode(buttonPin, INPUT);
+  state = 7;
+
 
    
 
@@ -544,6 +601,7 @@ void setup()
     : : "I" (_SFR_IO_ADDR(DDRC)), "r" (PC_PIN_DIRS)
   );
   num17();
+  
 }
 
 bool isPressed = false;
@@ -555,13 +613,19 @@ void loop()
 
   if(buttonState == 1023 && !isPressed)
   {
+   
     Serial.println("BUTTON PRESED!");
-    randNumber = random(21);
+    state = randomNumber(state);
+    randNumber = convertToRange(1, 20, state);
+    Serial.println("randNubmer inRange");
+    Serial.println(randNumber);
+
+    /*randNumber = random(21);
      Serial.println(randNumber);
 
     //on
     //digitalWrite(ledPin, HIGH);
-    Serial.println(randNumber);
+    Serial.println(randNumber);*/
     isPressed = true;
 
   }
