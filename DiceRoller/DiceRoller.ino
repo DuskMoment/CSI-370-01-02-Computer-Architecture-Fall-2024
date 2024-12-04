@@ -21,12 +21,28 @@ const int col[8] = {
   6, 11, 10, 3, 17, 4, 8, 9
 };
 
+
+
 // 2-dimensional array of pixels:
 int pixels[8][8];
 
 // cursor position:
 int x = 5;
 int y = 5;
+void testCode()
+{
+  digitalWrite(col[3], HIGH); //issue
+   
+  digitalWrite(col[6], HIGH); //issue
+   
+  digitalWrite(row[0], HIGH);
+  digitalWrite(row[1], HIGH); //sorta ccorrect seems to be 3 insrred if 2
+  
+  digitalWrite(row[3], HIGH); //row 7
+  digitalWrite(row[4], HIGH);  //row 6
+  digitalWrite(row[5], HIGH); //row 4
+  digitalWrite(row[6], HIGH); //row 7
+}
 void clearChannels()
 {
   digitalWrite(col[7], LOW); //col 1
@@ -472,7 +488,7 @@ void num18()
 }
 void num19()
 {
-  num19();
+  num18();
   //digitalWrite(col[7], HIGH); //col 1
   asm (
     "sbi %0, %1 \n"
@@ -574,6 +590,21 @@ int convertToRange(int min, int max, int num)
   return num % (max - min + 1) + min;
 
 }
+bool readMessesge()
+{
+  char byte = 0;
+  
+  if(Serial.available() == 1)
+  {
+    byte = Serial.read(); 
+    
+    Serial.println(byte);
+    Serial.flush();
+    return true;
+  }
+  
+  return false;
+}
 void setup() 
 {
   // put your setup code here, to run once:
@@ -600,13 +631,41 @@ void setup()
     "out %0, %1 \n"
     : : "I" (_SFR_IO_ADDR(DDRC)), "r" (PC_PIN_DIRS)
   );
-  num17();
+
+  num8();
+  //digitalWrite(row[3], HIGH); //1 - 5
+ // digitalWrite(row[6], HIGH); //row 2 - 12
+  //digitalWrite(row[4], HIGH);  //row 3 -13
+  //digitalWrite(col[6], HIGH); //4 - 8
+  //digitalWrite(row[5], HIGH); //5 - 18
+  //digitalWrite(row[1], HIGH); //6 - 7
+  //digitalWrite(col[3], HIGH); //7 - 3
+  //digitalWrite(row[0], HIGH);//8 - 2
   
+  
+  
+ 
 }
+int const MAX_DICE = 6;
+const int DICE[MAX_DICE] = {4,6,8,10,12,20};
+int currIndex = 0;
 
 bool isPressed = false;
 void loop() 
 {
+  bool read = readMessesge();
+  //Serial.println(read);
+  if(read)
+  {
+    Serial.println("CHANGING INDEX");
+    //change the range
+    currIndex++;
+    if(currIndex >= MAX_DICE)
+    {
+      currIndex = 0;
+    }
+    read = false;
+  }
   buttonState = digitalRead(buttonPin);
   buttonState = analogRead(buttonPin);
   //Serial.println(buttonState);
@@ -616,7 +675,7 @@ void loop()
    
     Serial.println("BUTTON PRESED!");
     state = randomNumber(state);
-    randNumber = convertToRange(1, 20, state);
+    randNumber = convertToRange(1, DICE[currIndex], state);
     Serial.println("randNubmer inRange");
     Serial.println(randNumber);
 
